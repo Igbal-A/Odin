@@ -20,6 +20,7 @@ const playRules = {
     } 
 }
 
+// возвращаю ответ компьютера ввиде слова
 function getComputerChoice (n = 3) {
     let choice = Math.floor(Math.random() * n);
     switch (choice) {
@@ -33,24 +34,36 @@ function getComputerChoice (n = 3) {
             return "бумага"; 
             break;
     }
-}; // возвращаю ответ компьютера ввиде слова
+}
 
+// возвращаю ответ игрока ввиде слова
 function getHumanChoice () {
     return prompt("Ваш выбор из камень, ножницы, бумага:").toLowerCase();
-} // возвращаю ответ игрока ввиде слова
+} 
 
 function playRound (humanChoice, computerChoice) {
     let checkHumanChoice = playRules[humanChoice][computerChoice];
     let checkComputerChoice = playRules[computerChoice][humanChoice];
     if (checkHumanChoice > checkComputerChoice) {
         humanScore += 1;
-        console.log(`Вы выиграли, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}\nСчет:\n\tЧеловек: ${humanScore} \n\tКомпьютер: ${computerScore}`);
-    } else if (checkHumanChoice == checkComputerChoice){
-        console.log(`Ничья, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}\nСчет:\n\tЧеловек: ${humanScore} \n\tКомпьютер: ${computerScore}`);
-    } else {
-        computerScore += 1;
-        console.log(`Вы проиграли, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}\nСчет:\n\tЧеловек: ${humanScore} \n\tКомпьютер: ${computerScore}`);
+        console.log(`Вы выиграли, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}
+                Счет:
+                    Человек: ${humanScore}
+                    Компьютер: ${computerScore}`);
+        return
     }
+    if (checkHumanChoice === checkComputerChoice){
+        console.log(`Ничья, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}
+            Счет:
+                Человек: ${humanScore}
+                Компьютер: ${computerScore}`);
+        return
+    }
+    computerScore += 1;
+    console.log(`Вы проиграли, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}
+        Счет:
+            Человек: ${humanScore}
+            Компьютер: ${computerScore}`);
 }
 
 function playGame () {
