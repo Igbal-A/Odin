@@ -1,7 +1,4 @@
-
-let humanScore = 0; //счетчик побед пользоватателя
-let computerScore = 0; //счетчик побед компьютера
-
+let choiceComputer = ["камень", "ножницы", "бумага"];
 const playRules = {
     "камень" : {
         "камень" :  0,
@@ -20,54 +17,44 @@ const playRules = {
     } 
 }
 
-// возвращаю ответ компьютера ввиде слова
-function getComputerChoice (n = 3) {
-    let choice = ["камень", "ножницы", "бумага"]
-    return choice[Math.floor(Math.random() * n)]
-}
+//Запуск самой игры 
+function playGame () {
+    let humanScore = 0; //счетчик побед пользоватателя
+    let computerScore = 0; //счетчик побед компьютера
 
-// возвращаю ответ игрока ввиде слова
-function getHumanChoice () {
-    return prompt("Ваш выбор из камень, ножницы, бумага:").toLowerCase();
-} 
+        //Запуск раунда
+        function playRound (humanChoice, computerChoice) {
+            let checkHumanChoice = playRules[humanChoice][computerChoice];
+            let checkComputerChoice = playRules[computerChoice][humanChoice];
 
-function playRound (humanChoice, computerChoice) {
-    let checkHumanChoice = playRules[humanChoice][computerChoice];
-    let checkComputerChoice = playRules[computerChoice][humanChoice];
-    if (checkHumanChoice > checkComputerChoice) {
-        humanScore += 1;
-        console.log(`Вы выиграли, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}
+            if (checkHumanChoice > checkComputerChoice) {
+                humanScore += 1;
+                console.log(`Вы выиграли, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}
+                        Счет:
+                            Человек: ${humanScore}
+                            Компьютер: ${computerScore}`);
+                return
+            }
+            if (checkHumanChoice === checkComputerChoice){
+                console.log(`Ничья, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}
+                    Счет:
+                        Человек: ${humanScore}
+                        Компьютер: ${computerScore}`);
+                return
+            }
+            computerScore += 1;
+            console.log(`Вы проиграли, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}
                 Счет:
                     Человек: ${humanScore}
                     Компьютер: ${computerScore}`);
-        return
-    }
-    if (checkHumanChoice === checkComputerChoice){
-        console.log(`Ничья, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}
-            Счет:
-                Человек: ${humanScore}
-                Компьютер: ${computerScore}`);
-        return
-    }
-    computerScore += 1;
-    console.log(`Вы проиграли, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}
-        Счет:
-            Человек: ${humanScore}
-            Компьютер: ${computerScore}`);
-}
-
-function playGame () {
+        }
+    
     for (let i = 0; i < 5; i++) {
-        const humanSelection = getHumanChoice(); // получение выбора игрока
-        const computerSelection = getComputerChoice(); // получение выбора компьютера 
-        playRound(humanSelection, computerSelection);
+        const humanSelection = () => { return prompt("Ваш выбор из камень, ножницы, бумага:").toLowerCase(); } // получение выбора игрока
+        const computerSelection = () => { return choiceComputer[Math.floor(Math.random() * 3)]; } // получение выбора компьютера 
+
+        playRound(humanSelection(), computerSelection());
     }
 }
 
 playGame();
-
-
-
-
-
-
