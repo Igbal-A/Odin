@@ -22,18 +22,8 @@ const playRules = {
 
 // возвращаю ответ компьютера ввиде слова
 function getComputerChoice (n = 3) {
-    let choice = Math.floor(Math.random() * n);
-    switch (choice) {
-        case 0: 
-            return "камень"; 
-            break;
-        case 1: 
-            return "ножницы"; 
-            break;
-        case 2: 
-            return "бумага"; 
-            break;
-    }
+    let choice = ["камень", "ножницы", "бумага"]
+    return choice[Math.floor(Math.random() * n)]
 }
 
 // возвращаю ответ игрока ввиде слова
