@@ -1,5 +1,14 @@
 //Запуск самой игры 
 function playGame () {
+    let resultGame = document.querySelector(".result");
+    let showTitleUser = document.querySelector(".choosePlayer");
+    let showTitleComp = document.querySelector(".chooseComputer");
+    let scoreHuman = document.querySelector(".scoreHuman");
+    let scoreComp = document.querySelector(".scoreComp");
+    let restartGame = document.querySelector(".restart");
+    let buttons = document.querySelectorAll("button");
+    
+    let winner = ``;
     let humanScore = 0; 
     let computerScore = 0;
     let toolsGame = ["камень", "ножницы", "бумага"];
@@ -21,17 +30,36 @@ function playGame () {
         } 
     } 
 
-        //Получаем выбор игрока 
-        function getHumanChoice () {
-            let answerUser = prompt("Ваш выбор из камень, ножницы, бумага:").toLowerCase(); 
-            if (answerUser === toolsGame[0] || answerUser === toolsGame[1] || answerUser === toolsGame[2]) {
-                return answerUser;
-            } else {
-                alert("Введите: камень, ножницы, бумага");
-                return getHumanChoice();
-            }
-        }
     
+        //Получаем выбор игрока 
+        function playerSelection () {
+            let answerUser = "";
+        
+            buttons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    answerUser = button.textContent;
+                    let computerSelection = getComputerChoice();
+                    
+                    if (humanScore < 5 && computerScore < 5) 
+                        playRound(answerUser.toLowerCase(), computerSelection);
+
+                })
+            });
+
+                function reStart () {
+                    humanScore = 0;
+                    computerScore = 0;
+                
+                    resultGame.innerHTML = "Результат: ";
+                    showTitleUser.innerHTML = "Выбор игрока: ";
+                    showTitleComp.innerHTML = "Выбор компьютера: ";
+                    scoreHuman.innerHTML = "Счет игрока: 0";
+                    scoreComp.innerHTML = "Счет компьютера: 0";
+                }
+
+            restartGame.addEventListener("click", reStart);
+        }
+
         //Получаем выбор компьютера
         function getComputerChoice () {
             return toolsGame[Math.floor(Math.random() * 3)];
@@ -39,39 +67,50 @@ function playGame () {
 
         //Запуск раунда
         function playRound (humanChoice, computerChoice) {
+        
             let checkHumanChoice = playRules[humanChoice][computerChoice];
             let checkComputerChoice = playRules[computerChoice][humanChoice];
-
+        
             if (checkHumanChoice > checkComputerChoice) {
                 humanScore += 1;
-                console.log(`Вы выиграли, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}
-                                Счет:
-                                    Человек: ${humanScore}
-                                    Компьютер: ${computerScore}`);
+            
+                resultGame.innerHTML = "Результат: Вы выиграли, Ваш выбор:" + humanChoice + ", Выбор компьютера: " + computerChoice;
+                showTitleUser.innerHTML = "Выбор игрока: " + humanChoice;
+                showTitleComp.innerHTML = "Выбор компьютера: " + computerChoice;
+                scoreHuman.innerHTML = "Счет игрока: " + humanScore;
+                scoreComp.innerHTML = "Счет компьютера: " + computerScore;
+
+                if (humanScore == 5) {
+                    winner = "Победитель: Игрок";
+                    alert(winner);
+                }
+                return
+            }
+        
+            if (checkHumanChoice < checkComputerChoice){
+                computerScore += 1;
+            
+                resultGame.innerHTML = "Результат: Вы проиграли, Ваш выбор:" + humanChoice + ", Выбор компьютера: " + computerChoice;
+                showTitleUser.innerHTML = "Выбор игрока: " + humanChoice;
+                showTitleComp.innerHTML = "Выбор компьютера: " + computerChoice;
+                scoreHuman.innerHTML = "Счет игрока: " + humanScore;
+                scoreComp.innerHTML = "Счет компьютера: " + computerScore;
+
+                if (computerScore == 5) {
+                    winner = "Победитель: Компьютер";
+                    alert(winner);
+                }
                 return
             }
 
-            if (checkHumanChoice === checkComputerChoice){
-                console.log(`Ничья, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}
-                                Счет:
-                                    Человек: ${humanScore}
-                                    Компьютер: ${computerScore}`);
-                return
-            }
-
-            computerScore += 1;
-            console.log(`Вы проиграли, Ваш выбор: ${humanChoice}, Выбор компьютера: ${computerChoice}
-                                Счет:
-                                    Человек: ${humanScore}
-                                    Компьютер: ${computerScore}`);
+            resultGame.innerHTML = "Результат: Ничья, Ваш выбор:" + humanChoice + ", Выбор компьютера: " + computerChoice;
+            showTitleUser.innerHTML = "Выбор игрока: " + humanChoice;
+            showTitleComp.innerHTML = "Выбор компьютера: " + computerChoice;
+            scoreHuman.innerHTML = "Счет игрока: " + humanScore;
+            scoreComp.innerHTML = "Счет компьютера: " + computerScore;
         }
     
-    for (let i = 0; i < 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-
-        playRound(humanSelection, computerSelection);
-    }
+    playerSelection();
 }
 
 playGame();
