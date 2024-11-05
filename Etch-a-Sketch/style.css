@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+}
+
+.container__map {
+    display: flex;
+    width: 672px;
+    flex-wrap: wrap;
+    margin: 40px;
+}
+
+.map{
+    background-color: aqua;
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+}
