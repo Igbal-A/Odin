@@ -61,7 +61,6 @@ let inputColorValue = document.querySelector("#color").value; */
 
 
 function startToDraw () {  
-    let haveGrid = false;
     document.querySelector("#btn").addEventListener("click", function () {
         let container = document.querySelector(".container__map");
         let rows = document.querySelector("#rows").value;
@@ -77,7 +76,6 @@ function startToDraw () {
                             container.append(block);
                         }
                     }
-                    haveGrid = true;
                     return
                 }
                 return alert("mistake, more less input colomns and rows ")
