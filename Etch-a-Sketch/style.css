@@ -6,7 +6,7 @@ body {
 
 .container__map {
     display: flex;
-    width: 672px;
+    /* width: 672px; */
     flex-wrap: wrap;
     margin: 40px;
     border: 1px solid black;

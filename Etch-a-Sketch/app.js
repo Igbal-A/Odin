@@ -1,15 +1,16 @@
-
-
-
 function startToDraw () {  
     let haveGrid = false;
+    let saveColor;
+
     document.querySelector("#btn").addEventListener("click", function () {
         let container = document.querySelector(".container__map");
         let rows = document.querySelector("#rows").value;
         let colomns = document.querySelector("#colomns").value;
-        /* let inputColorValue = document.querySelector("#color").value; */
+        let size = document.querySelector("#size").value;
+        let inputColorValue = document.querySelector("#color").value;
+        saveColor = inputColorValue;
 
-            function createGrid (rows, colomns, havegrid) {
+            function createGrid (rows, colomns, size, havegrid) {
                 if (havegrid) {
                     removeGrid();
                 }
@@ -19,9 +20,12 @@ function startToDraw () {
                         for (let y = 0; y < colomns; y++) {
                             let block = document.createElement('div');
                             block.setAttribute("class", "grid");
+                            block.style.width = size + "px";
+                            block.style.height = size + "px";
                             container.append(block);
                         }
                     }
+                    container.style.width = ((rows * size) + (rows * 2)) + "px";
                     haveGrid = true;
                     return
                 }
@@ -37,13 +41,13 @@ function startToDraw () {
 
             function changeColor () {
                 let catchColorGrid;
+
                 container.addEventListener("mouseover", function (event) {
-                    let inputColorValue = document.querySelector("#color").value;
                     let target = event.target;
                     let checkColor = target.style.background;
                 
                     if ((checkColor == "null" || checkColor == "") && target.className == "grid") {
-                        target.style.background = inputColorValue;
+                        target.style.background = saveColor;
                         catchColorGrid = target.style.background;
                         target.style.opacity = 0.2;  
                         return 
@@ -58,11 +62,7 @@ function startToDraw () {
                 });
             }
 
-            function changeSize () {
-
-            }
-
-            createGrid(rows, colomns, haveGrid);
+            createGrid(rows, colomns, size, haveGrid);
             changeColor();
     });
 }
