@@ -40,15 +40,17 @@ function calculator () {
                     checkAC = false;
                     return
                 }
+
+                if (element.textContent == "=") {
+                    operationNumbers(numbers);
+                    return
+                }
+
                 if (numbers.length == 2) {
                     operationNumbers(numbers);
                     numbers[counterNumber].push(divNumbers.textContent);
                     console.log(numbers);
                     return
-                }
-
-                if (element.textContent == "=") {
-                    operationNumbers(numbers);
                 }
 
                 numbers[counterNumber] = numbers[counterNumber].join("");
