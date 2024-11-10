@@ -2,6 +2,7 @@ function calculator () {
     let numbers = [[]];
     let counterNumber = 0;
     let operator = "";
+    let checkAC = false;
     let display = document.querySelector(".display");
     let divNumbers = document.createElement("div");
     divNumbers.className = "divNumbers";
@@ -12,6 +13,15 @@ function calculator () {
         let getNumberOne = document.querySelectorAll(".button__number");
         getNumberOne.forEach((element) => {
             element.addEventListener("click", function () {
+                if (checkAC) {
+                    divNumbers.textContent = "";
+                    numbers[1] = new Array();
+                    numbers[1].push(element.textContent);
+                    divNumbers.textContent = numbers[1];
+                    console.log(numbers);
+                    return
+                }
+
                 divNumbers.textContent = "";
                 numbers[counterNumber].push(element.textContent);
                 divNumbers.textContent = numbers[counterNumber].join("");
@@ -27,6 +37,7 @@ function calculator () {
                 if (element.textContent == "A/C") {
                     divNumbers.textContent = "0";
                     cleanArrayNumbers(numbers);
+                    checkAC = false;
                     return
                 }
                 if (numbers.length == 2) {
@@ -37,8 +48,9 @@ function calculator () {
                 }
 
                 if (element.textContent == "=") {
-
+                    operationNumbers(numbers);
                 }
+
                 numbers[counterNumber] = numbers[counterNumber].join("");
                 counterNumber = 1;
                 numbers[counterNumber] = new Array();
@@ -75,6 +87,7 @@ function calculator () {
                 cleanArrayNumbers(numbers);
                 break;
         }
+        checkAC = true;
     }
 
     function cleanArrayNumbers (numbers) {
@@ -84,7 +97,7 @@ function calculator () {
             console.log(numbers);
         }
         counterNumber = 0;
-        operator = "";
+        /* operator = ""; */
         numbers[counterNumber] = new Array();
     }
 
