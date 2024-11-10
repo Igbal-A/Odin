@@ -58,7 +58,11 @@ function calculator () {
                     return
                 }
 
-                if (checlEqual) {
+                if (checlEqual && operator !== "") {
+                    numbers[0] = display.textContent;
+                    checkAC = true;
+                    numbers[1] = new Array();
+                    counterNumber = 1;
                     return
                 }
 
@@ -74,7 +78,9 @@ function calculator () {
         if (numbers[0] == "" || numbers.length < 2) {
             return
         }
-        numbers[counterNumber] = numbers[counterNumber].join("");
+        if (numbers[0] !== "" && numbers[1] !== "") {
+            numbers[counterNumber] = numbers[counterNumber].join("");
+        }
         console.log(numbers);
         let number1 = Number(number[0]);
         let number2 = Number(number[1]);
