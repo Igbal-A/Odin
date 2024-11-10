@@ -16,13 +16,15 @@ function calculator () {
             element.addEventListener("click", function () {
                 if (checkAC) {
                     divNumbers.textContent = "";
-                    numbers[1] = new Array();
+                    if (numbers[1] == "") {
+                        numbers[1] = new Array();
+                    }
                     numbers[1].push(element.textContent);
-                    divNumbers.textContent = numbers[1];
+                    divNumbers.textContent = numbers[1].join("");
                     console.log(numbers);
                     return
                 }
-                checlEqual = false;
+                /* checlEqual = false; */
 
                 divNumbers.textContent = "";
                 numbers[counterNumber].push(element.textContent);
