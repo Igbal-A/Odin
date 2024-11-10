@@ -63,6 +63,7 @@ function calculator () {
                     checkAC = true;
                     numbers[1] = new Array();
                     counterNumber = 1;
+                    operator = element.textContent;
                     return
                 }
 
