@@ -3,6 +3,7 @@ function calculator () {
     let counterNumber = 0;
     let operator = "";
     let checkAC = false;
+    let checlEqual = false;
     let display = document.querySelector(".display");
     let divNumbers = document.createElement("div");
     divNumbers.className = "divNumbers";
@@ -21,6 +22,7 @@ function calculator () {
                     console.log(numbers);
                     return
                 }
+                checlEqual = false;
 
                 divNumbers.textContent = "";
                 numbers[counterNumber].push(element.textContent);
@@ -43,6 +45,9 @@ function calculator () {
 
                 if (element.textContent == "=") {
                     operationNumbers(numbers);
+                    cleanArrayNumbers(numbers);
+                    checlEqual = true;
+                    checkAC = false;
                     return
                 }
 
@@ -50,6 +55,10 @@ function calculator () {
                     operationNumbers(numbers);
                     numbers[counterNumber].push(divNumbers.textContent);
                     console.log(numbers);
+                    return
+                }
+
+                if (checlEqual) {
                     return
                 }
 
@@ -85,7 +94,7 @@ function calculator () {
                 cleanArrayNumbers(numbers);
                 break;
             case "/": 
-                divNumbers.textContent = number1 / number2;
+                divNumbers.textContent = Math.round(number1 / number2);
                 cleanArrayNumbers(numbers);
                 break;
         }
