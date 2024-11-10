@@ -1,51 +1,95 @@
 function calculator () {
-    let numberOne;
-    let numberTwo;
-    let numbers = [];
-    let result;
+    let numbers = [[]];
+    let counterNumber = 0;
+    let operator = "";
+    let display = document.querySelector(".display");
+    let divNumbers = document.createElement("div");
+    divNumbers.className = "divNumbers";
+    divNumbers.textContent = "0";
+    display.append(divNumbers);
+
     function pressButtonsNumber () {
         let getNumberOne = document.querySelectorAll(".button__number");
         getNumberOne.forEach((element) => {
             element.addEventListener("click", function () {
-                if (numbers.length > 1) {
-                    return
-                }
-                let valueNumber = element.textContent;
-                numbers.push(valueNumber);
-
-                console.log(Number(valueNumber));
+                divNumbers.textContent = ""
+                numbers[counterNumber].push(element.textContent);
+                divNumbers.textContent = numbers[counterNumber].join("");
                 console.log(numbers);
-
-                if (numbers.length == 2) {
-                    result = document.querySelector(".button__operator_result").addEventListener("click", operationNumbers(numbers));
-                }
             })
         })
     }
 
     function pressButtonsOperators () {
-        let valueNumber;
         let getOperator = document.querySelectorAll(".button__operator");
         getOperator.forEach((element) => {
             element.addEventListener("click", function () {
-                valueNumber = element.textContent;
-                /* console.log(valueNumber); */
+                numbers[counterNumber] = numbers[counterNumber].join("");
+                counterNumber = 1;
+                numbers[counterNumber] = new Array();
+                operator = element.textContent
             })
         })
-        return valueNumber;
     }
 
-    function operationNumbers (number, operators) {
-        let number1 = Number(number[0]);
-        let number2 = Number(number[1]);
+    function operationNumbers (number) {
+        document.querySelector(".button__operator_result").addEventListener("click", () => {
+            numbers[counterNumber] = numbers[counterNumber].join("");
+            console.log(numbers);
+            let number1 = Number(number[0]);
+            let number2 = Number(number[1]);
 
-        resultNumbers = number1 + number2;
-        console.log(resultNumbers);
+            let lengthArray = numbers.length;
+
+            switch (operator) {
+                case "+": 
+                    divNumbers.textContent = number1 + number2;
+                    for (let i = 0; i <= lengthArray; i++) {
+                        numbers.pop();
+                        console.log(numbers);
+                    }
+                    counterNumber = 0;
+                    operator = "";
+                    numbers[counterNumber] = new Array();
+                    break;
+                case "-":
+                    divNumbers.textContent = number1 - number2;
+                    for (let i = 0; i <= lengthArray; i++) {
+                        numbers.pop();
+                        console.log(numbers);
+                    }
+                    counterNumber = 0;
+                    operator = "";
+                    numbers[counterNumber] = new Array();
+                    break;
+                case "*":
+                    divNumbers.textContent = number1 * number2;
+                    for (let i = 0; i <= lengthArray; i++) {
+                        numbers.pop();
+                        console.log(numbers);
+                    }
+                    counterNumber = 0;
+                    operator = "";
+                    numbers[counterNumber] = new Array();
+                    break;
+                case "/": 
+                    divNumbers.textContent = number1 / number2;
+                    for (let i = 0; i <= lengthArray; i++) {
+                        numbers.pop();
+                        console.log(numbers);
+                    }
+                    counterNumber = 0;
+                    operator = "";
+                    numbers[counterNumber] = new Array();
+                    break;
+            }
+        })
     }
 
-/*     result = document.querySelector(".button__operator_result").addEventListener("click", operationNumbers(numbers)); */
-    pressButtonsNumber();
     pressButtonsOperators();
+    pressButtonsNumber();
+    operationNumbers(numbers);
+
     
 }
 calculator();

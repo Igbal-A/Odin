@@ -20,6 +20,10 @@ body {
     height: 40px;
     background-color: #fff;
     margin: 10px 10px;
+
+    display: flex;
+    justify-content: end;
+    align-items: center;
 }
 
 .container__buttons {
@@ -46,4 +50,12 @@ body {
 .button__operator {
     width: 60px;
     height: 60px;
+}
+
+.divNumbers {
+    margin-right: 5px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
